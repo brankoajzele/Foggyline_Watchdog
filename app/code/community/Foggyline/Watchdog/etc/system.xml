@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Foggyline
+ *
+ * @category    Foggyline
+ * @package     Foggyline_Watchdog
+ * @copyright   Copyright (c) Foggyline <ajzele@gmail.com>
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <sections>
+        <system>
+            <groups>
+                <foggyline_watchdog>
+                    <label>Watchdog</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>999</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active>
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <ttl>
+                            <label>TTL</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>
+                                <![CDATA[TTL or Time to live. Integer value, representing number of last days to keep the log for. Value of <i>5</i> means <i>keep the logs for last 5 days and delete everything older</i>. This feature requires Magento cron jobs running.]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </ttl>
+                        <lfactions>
+                            <label>Log Frontend Actions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </lfactions>
+                        <lfparams>
+                            <label>Log Frontend Params</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>
+                                <![CDATA[If enabled, full request params (POST/GET) will be logged for all frontend requests. Magento crypt key is used to encrypt the param values before they are saved in database table. Besides imposing additional server load, this feature is also a <i>serious security concern</i>. Catching all POST and GET params means you will be able to see all customer passwords, credit cards (if the purchase was done on site), etc. You should <b>never</b> use this on production websites!]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <lfactions>1</lfactions>
+                            </depends>
+                        </lfparams>
+                        <lbactions>
+                            <label>Log Backend Actions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </lbactions>
+                        <lbparams>
+                            <label>Log Backend Params</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>
+                                <![CDATA[If enabled, full request params (POST/GET) will be logged for all backend requests. Magento crypt key is used to encrypt the param values before they are saved in database table. Besides imposing additional server load, this feature is also a <i>serious security concern</i>. You should <b>never</b> use this on production websites!]]></comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <lbactions>1</lbactions>
+                            </depends>
+                        </lbparams>
+                    </fields>
+                </foggyline_watchdog>
+            </groups>
+        </system>
+    </sections>
+</config>

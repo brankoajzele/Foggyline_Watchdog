@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Foggyline
+ *
+ * @category    Foggyline
+ * @package     Foggyline_Watchdog
+ * @copyright   Copyright (c) Foggyline <ajzele@gmail.com>
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Foggyline_Watchdog>
+            <version>1.0.0.0</version>
+        </Foggyline_Watchdog>
+    </modules>
+    <global>
+        <models>
+            <foggyline_watchdog>
+                <class>Foggyline_Watchdog_Model</class>
+                <resourceModel>foggyline_watchdog_resource</resourceModel>
+            </foggyline_watchdog>
+            <foggyline_watchdog_resource>
+                <class>Foggyline_Watchdog_Model_Resource</class>
+                <entities>
+                    <action>
+                        <table>foggyline_watchdog_action</table>
+                    </action>
+                </entities>
+            </foggyline_watchdog_resource>
+        </models>
+        <resources>
+            <foggyline_watchdog_setup>
+                <setup>
+                    <module>Foggyline_Watchdog</module>
+                </setup>
+            </foggyline_watchdog_setup>
+        </resources>
+        <blocks>
+            <foggyline_watchdog>
+                <class>Foggyline_Watchdog_Block</class>
+            </foggyline_watchdog>
+        </blocks>
+        <helpers>
+            <foggyline_watchdog>
+                <class>Foggyline_Watchdog_Helper</class>
+            </foggyline_watchdog>
+        </helpers>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <foggyline_watchdog_observer>
+                        <class>Foggyline_Watchdog_Model_Observer</class>
+                        <method>logger</method>
+                    </foggyline_watchdog_observer>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </global>
+    <crontab>
+        <jobs>
+            <foggyline_watchdog_clean>
+                <schedule>
+                    <!-- Run once every hour -->
+                    <cron_expr>0 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>foggyline_watchdog/cron::clean</model>
+                </run>
+            </foggyline_watchdog_clean>
+        </jobs>
+    </crontab>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <foggyline_watchdog after="Mage_Adminhtml">Foggyline_Watchdog_Adminhtml</foggyline_watchdog>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <system>
+            <foggyline_watchdog>
+                <active>0</active>
+                <ttl>10</ttl>
+                <lfactions>0</lfactions>
+                <lfparams>0</lfparams>
+                <lbactions>0</lbactions>
+                <lbparams>0</lbparams>
+            </foggyline_watchdog>
+        </system>
+    </default>
+</config>
